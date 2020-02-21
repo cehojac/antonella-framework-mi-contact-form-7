@@ -41,21 +41,31 @@ class Config
     * @example ['body_class','MCF7::function',10,2]
     * @example ['body_class',['MCF7','function'],10,2]
     */
-    public $add_filter=[];
+    public $add_filter=[
+        ['manage_mcf7_contacto_posts_columns',[__NAMESPACE__.'\ContactoController','TablaColumnas'],10,2],
+        ['manage_edit-mcf7_contacto_sortable_columns',[__NAMESPACE__.'\ContactoController','AsignarOrdenacion'],10,1],
+        ['request',[__NAMESPACE__.'\ContactoController','OrdenarColumnas'],10,1]
+        
+    ];
     /**
     * add_action data functions
     * @input array
     * @example ['body_class','MCF7::function',10,2]
     * @example ['body_class',['MCF7','function'],10,2]
     */
-    public $add_action=[];
+    public $add_action=[
+        ['wpcf7_before_send_mail',__NAMESPACE__.'\ContactoController::guardar'],
+        ['manage_mcf7_contacto_posts_custom_column',[__NAMESPACE__.'\ContactoController','TablaColumnasContenido'],10,2],
+        ['wp_ajax_elegir_ganador',__NAMESPACE__.'\ContactoController::MostrarGanador'],
+      
+    ];
     /**
     * add custom shortcodes
     * @input array
     * @example [['example','MCF7\ExampleController::example_shortcode']]
     */
     public $shortcodes=[
-        ['example','MCF7\ExampleController::example_shortcode']
+        ['boton-ganador','MCF7\ContactoController::boton_ganador']
     ];
     /**
     * Dashboard
@@ -144,13 +154,13 @@ class Config
     
         public $post_types =[
             [
-                'singular'      => '',
-                'plural'        => '',
-                'slug'          => '',
+                'singular'      => 'Contacto',
+                'plural'        => 'Contactos',
+                'slug'          => 'mcf7_contacto',
                 'translate'     => false,
                 'position'      => 4,
                 'taxonomy'      =>['category'],
-                'image'         =>'',
+                'image'         =>'antonella-icon.png',
             ],
 
         ];
